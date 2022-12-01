@@ -14,13 +14,16 @@
     "story:preview": "histoire preview"
   },
   "dependencies": {
+    "animejs": "^3.2.1",
     "pinia": "^2.0.23",
     "vue": "^3.2.41",
     "vuetify": "^3.0.1"
   },
   "devDependencies": {
     "@histoire/plugin-vue": "^0.11.7",
+    "@mdi/font": "^7.0.96",
     "@rushstack/eslint-patch": "^1.1.4",
+    "@types/animejs": "^3.1.6",
     "@types/jsdom": "^20.0.0",
     "@types/node": "^16.11.68",
     "@vitejs/plugin-vue": "^3.1.2",

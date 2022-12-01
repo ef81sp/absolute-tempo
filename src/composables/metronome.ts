@@ -7,7 +7,7 @@ type UseMetronome = () => {
   start: (cb?: Function) => void
   stop: (cb?: Function) => void
   tap: () => void
-  debugValues: {
+  internalValues: {
     intervalMs: ComputedRef<number>
     lastBeatTime: Ref<number>
     rapTime: ComputedRef<number>
@@ -64,10 +64,10 @@ export const useMetronome: UseMetronome = () => {
     bpm.value = Math.round(tappedBpm)
   }
 
-  const debugValues = {
+  const internalValues = {
     intervalMs,
     lastBeatTime,
     rapTime,
   }
-  return { bpm, beat, start, stop, tap, debugValues }
+  return { bpm, beat, start, stop, tap, internalValues }
 }

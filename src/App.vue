@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import GameA from './components/GameA.vue'
-import GameB from './components/GameB.vue'
+// import GameB from './components/GameB.vue'
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import GameB from './components/GameB.vue'
 
   <main>
     <GameA />
-    <GameB />
+    <!-- <GameB /> -->
   </main>
 </template>
 

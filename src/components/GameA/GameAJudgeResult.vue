@@ -12,8 +12,9 @@ const message = computed(() => {
     case 'GOOD':
       return 'GOOD!'
     case 'POOR':
-    default:
       return 'POOR...'
+    default:
+      return 'BAD'
   }
 })
 </script>
@@ -57,7 +58,8 @@ p {
   color: #b9ecfb;
   text-shadow: 3px 3px 3px #083c4b, 3px -3px 3px #083c4b, -3px 3px 3px #083c4b, -3px -3px 3px #083c4b;
 }
-.poor {
+.poor,
+.bad {
   color: #e0e0e0;
   text-shadow: 3px 3px 3px #3c3b3b, 3px -3px 3px #3c3b3b, -3px 3px 3px #3c3b3b, -3px -3px 3px #3c3b3b;
 }

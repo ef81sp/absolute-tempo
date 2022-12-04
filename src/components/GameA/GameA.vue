@@ -5,10 +5,11 @@ import GameAMetronomeBlink from './GameAMetronomeBlink.vue'
 import GameAJudgeResult from './GameAJudgeResult.vue'
 
 import { useMetronome } from '@/composables/metronome'
-import { gameAJudge } from '@/functions'
-import { useGameAManagerStore } from '@/stores/gameAManager'
+import { useGameAManagerStore, numberOfQuestions, gameAJudge } from '@/stores/gameAManager'
+import { useGlobalManagerStore } from '@/stores/globalManager'
 
 const gameAManager = useGameAManagerStore()
+const globalManager = useGlobalManagerStore()
 const { bpm, beat, start: startMetronome, stop: stopMetronome } = useMetronome()
 const answerBpm = ref(60)
 const isShowResult = ref(false)
@@ -32,6 +33,9 @@ const handleJudge = () => {
   isShowResult.value = true
 }
 const handleNext = () => {
+  if (gameAManager.isFinishing) {
+    globalManager.goToThePage('ResultA')
+  }
   gameAManager.addJudgeResults(judge.value)
   start()
 }
@@ -83,14 +87,12 @@ const handleNext = () => {
       />
     </div>
     <VProgressLinear
-      :model-value="gameAManager.now"
+      v-model="gameAManager.now"
       color="light-blue-lighten-1"
       height="25"
-      max="5"
+      :max="numberOfQuestions"
     >
-      <template v-slot:default="{ value }">
-        <strong>{{ value / 20 }} / 5</strong>
-      </template>
+      <strong>{{ gameAManager.now }} / {{ numberOfQuestions }}</strong>
     </VProgressLinear>
     <div>
       <VBtn
@@ -106,6 +108,8 @@ const handleNext = () => {
 article {
   text-align: center;
   max-width: 20rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 article > * + * {
   margin-top: 1rem;

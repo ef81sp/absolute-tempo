@@ -29,5 +29,12 @@ export const useGameAManagerStore = defineStore('gameAManager', () => {
 
   const isFinishing = computed(() => now.value >= numberOfQuestions)
 
-  return { now, judgeResults, addJudgeResults, rating, init, isFinishing }
+  const debugFinish = () => {
+    judgeResults.value = Array(numberOfQuestions).map(
+      () => ['PERFECT', 'GREAT', 'GOOD', 'POOR', 'BAD'][Math.floor(Math.random() * numberOfQuestions)] as JudgeResult,
+    )
+    now.value = numberOfQuestions
+  }
+
+  return { now, judgeResults, addJudgeResults, rating, init, isFinishing, debugFinish }
 })

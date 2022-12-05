@@ -101,6 +101,19 @@ const handleNext = () => {
         >Next</VBtn
       >
     </div>
+    <div>
+      <VBtn
+        color="error"
+        @click="
+          () => {
+            gameAManager.debugFinish()
+            globalManager.goToThePage('ResultA')
+          }
+        "
+      >
+        DEBUG FINISH
+      </VBtn>
+    </div>
   </article>
 </template>
 

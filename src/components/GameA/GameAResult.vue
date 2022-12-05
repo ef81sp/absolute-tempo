@@ -8,7 +8,7 @@ const globalManager = useGlobalManagerStore()
 </script>
 
 <template>
-  <p>Your rating is...</p>
+  <p class="introduction">Your rating is...</p>
   <p>
     <GameAResultRating
       :rating="gameAManager.rating"
@@ -33,8 +33,11 @@ const globalManager = useGlobalManagerStore()
   margin-left: auto;
   margin-right: auto;
 }
+.introduction {
+  font-size: 1.2rem;
+}
 .rating {
-  font-size: 4em;
+  font-size: 4rem;
 }
 .tweet-button {
   color: white;

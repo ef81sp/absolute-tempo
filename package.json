@@ -17,10 +17,12 @@
     "animejs": "^3.2.1",
     "pinia": "^2.0.23",
     "vue": "^3.2.41",
+    "vue-i18n": "^9.2.2",
     "vuetify": "^3.0.1"
   },
   "devDependencies": {
     "@histoire/plugin-vue": "^0.11.7",
+    "@intlify/unplugin-vue-i18n": "^0.8.0",
     "@mdi/font": "^7.0.96",
     "@rushstack/eslint-patch": "^1.1.4",
     "@types/animejs": "^3.1.6",

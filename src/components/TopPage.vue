@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { useGlobalManagerStore } from '@/stores/globalManager'
+import { useI18n } from 'vue-i18n'
 
 const globalManager = useGlobalManagerStore()
 
 const goToGameA = () => {
   globalManager.goToThePage('GameA')
 }
+const { t } = useI18n()
 </script>
 
 <template>
@@ -13,7 +15,7 @@ const goToGameA = () => {
     <section>
       <div>
         <h2>GAME A</h2>
-        <p>guess</p>
+        <p>{{ t('guess') }}</p>
       </div>
       <div class="controllers">
         <VBtn @click="goToGameA">PLAY</VBtn>
@@ -23,7 +25,7 @@ const goToGameA = () => {
     <section>
       <div>
         <h2>GAME B</h2>
-        <p>beat</p>
+        <p>{{ t('beat') }}</p>
       </div>
       <div class="controllers">
         <VBtn disabled>PLAY</VBtn>
@@ -32,6 +34,15 @@ const goToGameA = () => {
     </section>
   </div>
 </template>
+
+<i18n lang="yaml">
+ja:
+  guess: '推測'
+  beat: '叩き'
+en:
+  guess: 'Guess'
+  beat: 'Beat'
+</i18n>
 
 <style scoped>
 section,

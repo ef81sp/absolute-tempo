@@ -3,16 +3,18 @@ import TopPage from './components/TopPage.vue'
 import GameA from './components/GameA/GameA.vue'
 import ResultA from './components/GameA/GameAResult.vue'
 import { useGlobalManagerStore } from './stores/globalManager'
+import { useI18n } from 'vue-i18n'
+import TranslateButton from './components/TranslateButton.vue'
 // import GameB from './components/GameB.vue'
 
 const globalManager = useGlobalManagerStore()
+const { t } = useI18n()
 </script>
 
 <template>
   <header>
-    <div class="wrapper">
-      <h1>絶対テンポ感</h1>
-    </div>
+    <TranslateButton />
+    <h1>{{ t('title') }}</h1>
   </header>
 
   <main>
@@ -23,13 +25,15 @@ const globalManager = useGlobalManagerStore()
   </main>
 </template>
 
+<i18n lang="yaml">
+ja:
+  title: '絶対テンポ感'
+en:
+  title: 'Absolute Tempo'
+</i18n>
+
 <style scoped>
 header {
   line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
 }
 </style>

@@ -7,10 +7,13 @@ import GameAJudgeResult from './GameAJudgeResult.vue'
 import { useMetronome } from '@/composables/metronome'
 import { useGameAManagerStore, numberOfQuestions, gameAJudge } from '@/stores/gameAManager'
 import { useGlobalManagerStore } from '@/stores/globalManager'
+import { useI18n } from 'vue-i18n'
 
 const gameAManager = useGameAManagerStore()
 const globalManager = useGlobalManagerStore()
 const { bpm, beat, start: startMetronome, stop: stopMetronome } = useMetronome()
+const { t } = useI18n()
+
 const answerBpm = ref(60)
 const isShowResult = ref(false)
 
@@ -44,14 +47,16 @@ const handleNext = () => {
 <template>
   <article>
     <h2>Game A</h2>
-    <p>Guess what the BPM is!</p>
+    <p>{{ t('description') }}</p>
     <GameAMetronomeBlink
       :beat="beat"
       class="metronome-area"
     />
     <div class="bpm-area">
       <div>
-        <label for="answer"> <p>Your Answer:</p></label>
+        <label for="answer">
+          <p>{{ t('your_answer') }}:</p></label
+        >
         <VTextField
           id="answer"
           v-model.number="answerBpm"
@@ -64,20 +69,20 @@ const handleNext = () => {
         />
       </div>
       <div>
-        <p>Correct Answer:</p>
-        <p
-          class="correct-answer"
-          :class="isShowResult ? '' : 'hidden'"
-        >
-          {{ bpm }}
-        </p>
+        <p>{{ t('correct_answer') }}:</p>
+        <div class="correct-answer">
+          <p :class="isShowResult ? '' : 'hidden'">
+            {{ bpm }}
+          </p>
+        </div>
       </div>
     </div>
     <div>
       <VBtn
         @click="handleJudge"
         :disabled="isShowResult"
-        >Judge!!</VBtn
+        color="info"
+        >{{ t('judge') }}</VBtn
       >
     </div>
     <div>
@@ -98,7 +103,8 @@ const handleNext = () => {
       <VBtn
         @click="handleNext"
         :disabled="!isShowResult"
-        >Next</VBtn
+      >
+        {{ gameAManager.isFinishing ? t('finish') : t('next') }}</VBtn
       >
     </div>
     <div>
@@ -116,6 +122,23 @@ const handleNext = () => {
     </div>
   </article>
 </template>
+
+<i18n lang="yaml">
+ja:
+  description: 'BPMを推測しよう！'
+  your_answer: 'あなたの回答'
+  correct_answer: '正解'
+  judge: '判定！'
+  next: '次の問題'
+  finish: '結果を見る'
+en:
+  description: 'Guess what the BPM is!'
+  your_answer: 'Your Answer'
+  correct_answer: 'Correct Answer'
+  judge: 'Judge!'
+  next: 'Next'
+  finish: 'Finish'
+</i18n>
 
 <style scoped>
 article {
@@ -143,6 +166,8 @@ article > * + * {
 }
 .correct-answer {
   font-size: 2rem;
+  border: 1px solid #000;
+  width: 6rem;
 }
 .judge {
   font-size: 2rem;

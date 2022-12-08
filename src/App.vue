@@ -13,7 +13,9 @@ const { t } = useI18n()
 
 <template>
   <header>
-    <TranslateButton />
+    <div class="translate-button">
+      <TranslateButton />
+    </div>
     <h1>{{ t('title') }}</h1>
   </header>
 
@@ -35,5 +37,15 @@ en:
 <style scoped>
 header {
   line-height: 1.5;
+}
+h1 {
+  /* display: inline; */
+  margin-left: auto;
+  margin-right: auto;
+}
+.translate-button {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: -1rem;
 }
 </style>

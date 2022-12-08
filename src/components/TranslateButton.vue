@@ -15,9 +15,9 @@ const handleClickSelect: VList['onClick:select'] = ({ id }) => {
 <template>
   <VBtn
     icon
-    size="small"
+    size="x-small"
   >
-    <VIcon icon="mdi-translate">Translate</VIcon>
+    <VIcon>mdi-translate</VIcon>
     <VMenu activator="parent">
       <VList
         v-model="locale"

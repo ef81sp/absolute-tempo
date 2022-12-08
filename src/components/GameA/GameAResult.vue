@@ -12,8 +12,8 @@ const { t } = useI18n()
 const tweetUrl = computed(() => {
   const url = new URL('https://twitter.com/intent/tweet')
   url.searchParams.set('text', t('tweet_content', { rating: gameAManager.rating }))
-  url.searchParams.set('hashtags', 'absolute_tempo')
-  url.searchParams.set('url', 'https://example.com')
+  url.searchParams.set('hashtags', encodeURI('absolute_tempo'))
+  url.searchParams.set('url', encodeURI(window.location.href))
 
   return url.toString()
 })
@@ -35,6 +35,8 @@ const tweetUrl = computed(() => {
       color="#1DA1F2"
       class="tweet-button"
       :href="tweetUrl"
+      target="_blank"
+      rel="noopener norefferer"
       >{{ t('tweet') }}</VBtn
     >
   </div>

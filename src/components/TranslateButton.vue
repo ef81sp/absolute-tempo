@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import { useI18n } from 'vue-i18n'
 import { VList } from 'vuetify/components'
 
@@ -10,6 +11,16 @@ const { locale, availableLocales } = useI18n({ useScope: 'global' })
 const handleClickSelect: VList['onClick:select'] = ({ id }) => {
   locale.value = id as string
 }
+onMounted(() => {
+  switch (window.navigator.language) {
+    case 'ja':
+    case 'ja-JP':
+      locale.value = 'ja'
+      break
+    default:
+      locale.value = 'en'
+  }
+})
 </script>
 
 <template>

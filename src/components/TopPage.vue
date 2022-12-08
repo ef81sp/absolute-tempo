@@ -7,6 +7,9 @@ const globalManager = useGlobalManagerStore()
 const goToGameA = () => {
   globalManager.goToThePage('GameA')
 }
+const goToPracticeA = () => {
+  globalManager.goToThePage('PracticeA')
+}
 const { t } = useI18n()
 </script>
 
@@ -19,7 +22,7 @@ const { t } = useI18n()
       </div>
       <div class="controllers">
         <VBtn @click="goToGameA">PLAY</VBtn>
-        <VBtn disabled>PRACTICE</VBtn>
+        <VBtn @click="goToPracticeA">PRACTICE</VBtn>
       </div>
     </section>
     <section>

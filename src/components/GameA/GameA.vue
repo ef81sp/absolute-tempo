@@ -8,6 +8,11 @@ import { useMetronome } from '@/composables/metronome'
 import { useGameAManagerStore, numberOfQuestions, gameAJudge } from '@/stores/gameAManager'
 import { useGlobalManagerStore } from '@/stores/globalManager'
 import { useI18n } from 'vue-i18n'
+import type { VInput } from 'vuetify/components'
+
+const props = defineProps<{
+  mode: 'game' | 'practice'
+}>()
 
 const gameAManager = useGameAManagerStore()
 const globalManager = useGlobalManagerStore()
@@ -36,18 +41,29 @@ const handleJudge = () => {
   isShowResult.value = true
 }
 const handleNext = () => {
-  if (gameAManager.isFinishing) {
-    globalManager.goToThePage('ResultA')
+  if (props.mode === 'game') {
+    if (gameAManager.isFinishing) {
+      globalManager.goToThePage('ResultA')
+    }
+    gameAManager.addJudgeResults(judge.value)
   }
-  gameAManager.addJudgeResults(judge.value)
   start()
+}
+const handleGoToTop = () => {
+  globalManager.goToThePage('Top')
 }
 </script>
 
 <template>
   <article>
-    <h2>Game A</h2>
-    <p>{{ t('description') }}</p>
+    <h2>{{ mode === 'game' ? 'Game' : 'Practice' }} A</h2>
+    <p class="description">
+      {{ t('description') }}<br />
+      <small>
+        {{ t('description_bpm') }}<br />
+        ex) 40, 44, 48, ..., 236, 240
+      </small>
+    </p>
     <GameAMetronomeBlink
       :beat="beat"
       class="metronome-area"
@@ -66,6 +82,9 @@ const handleNext = () => {
           step="4"
           :disabled="isShowResult"
           class="input"
+          :rules="[(value: number) => {
+            return (40 <= value && value <= 240) && (value % 4 === 0) || 'NG'
+          }]"
         />
       </div>
       <div>
@@ -96,8 +115,9 @@ const handleNext = () => {
       color="light-blue-lighten-1"
       height="25"
       :max="numberOfQuestions"
+      v-if="mode === 'game'"
     >
-      <strong>{{ gameAManager.now }} / {{ numberOfQuestions }}</strong>
+      {{ gameAManager.now }} / {{ numberOfQuestions }}
     </VProgressLinear>
     <div>
       <VBtn
@@ -109,6 +129,12 @@ const handleNext = () => {
     </div>
     <div>
       <VBtn
+        @click="handleGoToTop"
+        v-if="mode === 'practice'"
+      >
+        {{ t('practice_goto_top') }}</VBtn
+      >
+      <!-- <VBtn
         color="error"
         @click="
           () => {
@@ -118,7 +144,7 @@ const handleNext = () => {
         "
       >
         DEBUG FINISH
-      </VBtn>
+      </VBtn> -->
     </div>
   </article>
 </template>
@@ -126,18 +152,22 @@ const handleNext = () => {
 <i18n lang="yaml">
 ja:
   description: 'BPMを推測しよう！'
+  description_bpm: 'BPMは40〜240の4刻み。'
   your_answer: 'あなたの回答'
   correct_answer: '正解'
   judge: '判定！'
   next: '次の問題'
   finish: '結果を見る'
+  practice_goto_top: 'トップに戻る'
 en:
   description: 'Guess what the BPM is!'
+  description_bpm: 'BPM increases by 4 from 40 to 240;'
   your_answer: 'Your Answer'
   correct_answer: 'Correct Answer'
   judge: 'Judge!'
   next: 'Next'
   finish: 'Finish'
+  practice_goto_top: 'Return to Top'
 </i18n>
 
 <style scoped>
@@ -148,7 +178,13 @@ article {
   margin-right: auto;
 }
 article > * + * {
-  margin-top: 1rem;
+  margin-top: 0.75rem;
+}
+
+.description {
+  margin-top: 0.5rem;
+  font-size: smaller;
+  line-height: 1.3em;
 }
 .metronome-area {
   max-width: 50%;
@@ -159,6 +195,8 @@ article > * + * {
 .bpm-area {
   display: flex;
   justify-content: space-between;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .input {
   font-weight: bold;

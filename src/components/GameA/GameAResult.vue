@@ -52,7 +52,7 @@ en:
   intro: 'Your rating is...'
   return_to_top: 'Return to Top'
   tweet: 'Tweet'
-  tweet_content: 'I got a rating of [{rating}] on Absolute Tempo GAME A!'
+  tweet_content: 'I got a rating of [ {rating} ] on Absolute Tempo GAME A!'
 </i18n>
 
 <style scoped>

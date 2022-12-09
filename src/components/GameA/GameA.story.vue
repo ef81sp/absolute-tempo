@@ -3,6 +3,6 @@ import GameA from './GameA.vue'
 </script>
 <template>
   <Story>
-    <GameA />
+    <GameA mode="game" />
   </Story>
 </template>

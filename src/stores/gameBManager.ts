@@ -5,16 +5,16 @@ import { rate } from './functions/calcPoints'
 
 export const numberOfQuestions = 5
 
-type GameAJudge = (answerBpm: number, correctBpm: number) => JudgeResult
-export const gameAJudge: GameAJudge = (answerBpm, correctBpm) => {
-  if (answerBpm === correctBpm) return 'PERFECT'
-  else if (Math.abs(answerBpm - correctBpm) <= 4) return 'GREAT'
-  else if (Math.abs(answerBpm - correctBpm) <= 8) return 'GOOD'
-  else if (Math.abs(answerBpm - correctBpm) <= 12) return 'POOR'
+type GameBJudge = (answerBpm: number, correctBpm: number) => JudgeResult
+export const gameBJudge: GameBJudge = (answerBpm, correctBpm) => {
+  if (Math.abs(answerBpm - correctBpm) < 4) return 'PERFECT'
+  else if (Math.abs(answerBpm - correctBpm) < 8) return 'GREAT'
+  else if (Math.abs(answerBpm - correctBpm) < 12) return 'GOOD'
+  else if (Math.abs(answerBpm - correctBpm) < 16) return 'POOR'
   return 'BAD'
 }
 
-export const useGameAManagerStore = defineStore('gameAManager', () => {
+export const useGameBManagerStore = defineStore('gameBManager', () => {
   const now = ref<number>(1)
   const judgeResults = ref<JudgeResult[]>([])
   const addJudgeResults = (result: JudgeResult) => {

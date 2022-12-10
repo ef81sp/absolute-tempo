@@ -1,14 +1,13 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 
-import GameAMetronomeBlink from './GameAMetronomeBlink.vue'
-import GameAJudgeResult from './GameAJudgeResult.vue'
+import MetronomeBlink from '@/components/Metronome/MetronomeBlink.vue'
+import GameJudge from './Common/GameJudge.vue'
 
 import { useMetronome } from '@/composables/metronome'
 import { useGameAManagerStore, numberOfQuestions, gameAJudge } from '@/stores/gameAManager'
 import { useGlobalManagerStore } from '@/stores/globalManager'
 import { useI18n } from 'vue-i18n'
-import type { VInput } from 'vuetify/components'
 
 const props = defineProps<{
   mode: 'game' | 'practice'
@@ -64,7 +63,7 @@ const handleGoToTop = () => {
         ex) 40, 44, 48, ..., 236, 240
       </small>
     </p>
-    <GameAMetronomeBlink
+    <MetronomeBlink
       :beat="beat"
       class="metronome-area"
     />
@@ -105,7 +104,7 @@ const handleGoToTop = () => {
       >
     </div>
     <div>
-      <GameAJudgeResult
+      <GameJudge
         :judge-result="judge"
         :class="isShowResult ? 'judge' : 'judge hidden'"
       />

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import GameAMetronomeBlinkCircle from './GameAMetronomeBlinkCircle.vue'
+import MetronomeBlinkCircle from './MetronomeBlinkCircle.vue'
 
 const props = defineProps<{
   beat: boolean
@@ -17,12 +17,12 @@ watch(
   <div class="container">
     <div class="box">
       <Transition>
-        <GameAMetronomeBlinkCircle v-show="count % 2 === 1 && beat" />
+        <MetronomeBlinkCircle v-show="count % 2 === 1 && beat" />
       </Transition>
     </div>
     <div class="box">
       <Transition>
-        <GameAMetronomeBlinkCircle v-show="count % 2 === 0 && beat" />
+        <MetronomeBlinkCircle v-show="count % 2 === 0 && beat" />
       </Transition>
     </div>
   </div>

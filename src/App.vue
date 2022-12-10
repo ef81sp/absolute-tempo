@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import TopPage from './components/TopPage.vue'
-import GameA from './components/GameA/GameA.vue'
-import ResultA from './components/GameA/GameAResult.vue'
+import GameA from './components/GameA.vue'
+import Result from './components/Common/GameResult.vue'
 import { useGlobalManagerStore } from './stores/globalManager'
 import { useI18n } from 'vue-i18n'
 import TranslateButton from './components/TranslateButton.vue'
-import { onMounted } from 'vue'
 // import GameB from './components/GameB.vue'
 
 const globalManager = useGlobalManagerStore()
 const { t } = useI18n()
-
 </script>
 
 <template>
@@ -31,7 +29,7 @@ const { t } = useI18n()
       mode="practice"
       v-if="globalManager.nowPage === 'PracticeA'"
     />
-    <ResultA v-if="globalManager.nowPage === 'ResultA'">おわり</ResultA>
+    <Result v-if="globalManager.nowPage === 'ResultA'">おわり</Result>
     <!-- <GameB /> -->
   </main>
 </template>

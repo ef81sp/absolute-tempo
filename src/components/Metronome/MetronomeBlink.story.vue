@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import GameAMetronomeBlink from './GameAMetronomeBlink.vue'
+import MetronomeBlink from './MetronomeBlink.vue'
 import { useMetronome } from '@/composables/metronome'
 
 const { bpm, beat, start, stop } = useMetronome()
@@ -7,7 +7,7 @@ const { bpm, beat, start, stop } = useMetronome()
 <template>
   <Story>
     <Variant>
-      <GameAMetronomeBlink :beat="beat" />
+      <MetronomeBlink :beat="beat" />
 
       <template #controls>
         <HstNumber

@@ -3,7 +3,7 @@ import { useGameAManagerStore } from '@/stores/gameAManager'
 import { useGlobalManagerStore } from '@/stores/globalManager'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import GameAResultRating from './GameAResultRating.vue'
+import GameResultRating from './GameResultRating.vue'
 
 const gameAManager = useGameAManagerStore()
 const globalManager = useGlobalManagerStore()
@@ -23,7 +23,7 @@ const tweetUrl = computed(() => {
   <p class="introduction">{{ t('intro') }}</p>
   <p><small>(EXCELLENT > S > A > B > C > D > E > F)</small></p>
   <p>
-    <GameAResultRating
+    <GameResultRating
       :rating="gameAManager.rating"
       class="rating"
     />

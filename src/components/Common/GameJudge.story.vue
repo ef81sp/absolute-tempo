@@ -2,12 +2,12 @@
 import type { JudgeResult } from '@/types'
 import { judgeResults } from '@/types'
 import { ref } from 'vue'
-import GameAJudgeResult from './GameAJudgeResult.vue'
+import GameJudge from './GameJudge.vue'
 const judgeResult = ref<JudgeResult>('PERFECT')
 </script>
 <template>
   <Story>
-    <GameAJudgeResult :judgeResult="judgeResult" />
+    <GameJudge :judgeResult="judgeResult" />
     <template #controls>
       <VSelect
         v-model="judgeResult"

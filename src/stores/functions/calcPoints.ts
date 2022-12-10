@@ -23,15 +23,15 @@ const pointMaster = new Map<JudgeResult, number>([
   ['POOR', 1],
   ['BAD', 0],
 ])
-export const calcPointsGameA = (judgeResults: JudgeResult[]) => {
+export const calcPoints = (judgeResults: JudgeResult[]) => {
   return judgeResults.reduce((prev, cur) => prev + pointMaster.get(cur)!, 0)
 }
 
-type RatingGameA = {
+type Rate = {
   (target: JudgeResult[]): Rating
   (target: number, max: number): Rating
 }
-export const ratingGameA: RatingGameA = (target: number | JudgeResult[], max?: number): Rating => {
+export const rate: Rate = (target: number | JudgeResult[], max?: number): Rating => {
   let point: number = 0
   if (typeof target === 'number') {
     if (max == undefined) {
@@ -42,7 +42,7 @@ export const ratingGameA: RatingGameA = (target: number | JudgeResult[], max?: n
     }
     point = target / max
   } else {
-    point = calcPointsGameA(target) / (5 * target.length)
+    point = calcPoints(target) / (5 * target.length)
   }
 
   if (point === 1) return 'EXCELLENT'

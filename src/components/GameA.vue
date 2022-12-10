@@ -43,6 +43,7 @@ const handleNext = () => {
   if (props.mode === 'game') {
     if (gameAManager.isFinishing) {
       globalManager.goToThePage('ResultA')
+      return
     }
     gameAManager.addJudgeResults(judge.value)
   }

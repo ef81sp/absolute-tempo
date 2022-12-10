@@ -52,7 +52,6 @@ export const useMetronome: UseMetronome = () => {
   const _tapHistoryLength = 3
 
   const tap = () => {
-    console.log(time.value)
     _tapHistory.push(time.value)
     if (_tapHistory.length < _tapHistoryLength) return
     if (_tapHistory.length > _tapHistoryLength) {

@@ -34,8 +34,8 @@ watch(
 .box {
   aspect-ratio: 1;
   width: 50%;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: 8%;
+  padding-right: 8%;
 }
 
 .v-leave-active {

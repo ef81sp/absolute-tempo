@@ -5,7 +5,7 @@ import Result from './components/Common/GameResult.vue'
 import { useGlobalManagerStore } from './stores/globalManager'
 import { useI18n } from 'vue-i18n'
 import TranslateButton from './components/TranslateButton.vue'
-// import GameB from './components/GameB.vue'
+import GameB from './components/GameB.vue'
 
 const globalManager = useGlobalManagerStore()
 const { t } = useI18n()
@@ -29,8 +29,22 @@ const { t } = useI18n()
       mode="practice"
       v-if="globalManager.nowPage === 'PracticeA'"
     />
-    <Result v-if="globalManager.nowPage === 'ResultA'">おわり</Result>
-    <!-- <GameB /> -->
+    <Result
+      game-variation="A"
+      v-if="globalManager.nowPage === 'ResultA'"
+    />
+    <GameB
+      mode="game"
+      v-if="globalManager.nowPage === 'GameB'"
+    />
+    <GameB
+      mode="practice"
+      v-if="globalManager.nowPage === 'PracticeB'"
+    />
+    <Result
+      game-variation="B"
+      v-if="globalManager.nowPage === 'ResultB'"
+    />
   </main>
 </template>
 

@@ -7,10 +7,10 @@ export const numberOfQuestions = 5
 
 type GameBJudge = (answerBpm: number, correctBpm: number) => JudgeResult
 export const gameBJudge: GameBJudge = (answerBpm, correctBpm) => {
-  if (Math.abs(answerBpm - correctBpm) < 4) return 'PERFECT'
-  else if (Math.abs(answerBpm - correctBpm) < 8) return 'GREAT'
-  else if (Math.abs(answerBpm - correctBpm) < 12) return 'GOOD'
-  else if (Math.abs(answerBpm - correctBpm) < 16) return 'POOR'
+  if (Math.abs(answerBpm - correctBpm) <= 2) return 'PERFECT'
+  else if (Math.abs(answerBpm - correctBpm) <= 6) return 'GREAT'
+  else if (Math.abs(answerBpm - correctBpm) <= 10) return 'GOOD'
+  else if (Math.abs(answerBpm - correctBpm) <= 16) return 'POOR'
   return 'BAD'
 }
 

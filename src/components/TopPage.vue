@@ -10,6 +10,12 @@ const goToGameA = () => {
 const goToPracticeA = () => {
   globalManager.goToThePage('PracticeA')
 }
+const goToGameB = () => {
+  globalManager.goToThePage('GameB')
+}
+const goToPracticeB = () => {
+  globalManager.goToThePage('PracticeB')
+}
 const { t } = useI18n()
 </script>
 
@@ -31,8 +37,8 @@ const { t } = useI18n()
         <p>{{ t('beat') }}</p>
       </div>
       <div class="controllers">
-        <VBtn disabled>PLAY</VBtn>
-        <VBtn disabled>PRACTICE</VBtn>
+        <VBtn @click="goToGameB">PLAY</VBtn>
+        <VBtn  @click="goToPracticeB">PRACTICE</VBtn>
       </div>
     </section>
   </div>

@@ -1,17 +1,35 @@
 <script setup lang="ts">
 import { useGameAManagerStore } from '@/stores/gameAManager'
+import { useGameBManagerStore } from '@/stores/gameBManager'
 import { useGlobalManagerStore } from '@/stores/globalManager'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameResultRating from './GameResultRating.vue'
 
-const gameAManager = useGameAManagerStore()
+const props = defineProps<{
+  gameVariation: 'A' | 'B'
+}>()
+
+const gameManager = (() => {
+  switch (props.gameVariation) {
+    case 'A':
+      return useGameAManagerStore()
+    case 'B':
+      return useGameBManagerStore()
+  }
+})()
 const globalManager = useGlobalManagerStore()
 const { t } = useI18n()
 
 const tweetUrl = computed(() => {
   const url = new URL('https://twitter.com/intent/tweet')
-  url.searchParams.set('text', t('tweet_content', { rating: gameAManager.rating }))
+  url.searchParams.set(
+    'text',
+    t('tweet_content', {
+      rating: gameManager.rating,
+      gameVariation: props.gameVariation,
+    }),
+  )
   url.searchParams.set('hashtags', encodeURI('absolute_tempo'))
   url.searchParams.set('url', encodeURI(window.location.href))
 
@@ -24,7 +42,7 @@ const tweetUrl = computed(() => {
   <p><small>(EXCELLENT > S > A > B > C > D > E > F)</small></p>
   <p>
     <GameResultRating
-      :rating="gameAManager.rating"
+      :rating="gameManager.rating"
       class="rating"
     />
   </p>
@@ -47,12 +65,12 @@ ja:
   intro: 'あなたのレーティングは……'
   return_to_top: 'トップに戻る'
   tweet: 'ツイート'
-  tweet_content: '絶対テンポ感 GAME A でレーティング【 {rating} 】を獲得！'
+  tweet_content: '絶対テンポ感 GAME {gameVariation} でレーティング【 {rating} 】を獲得！'
 en:
   intro: 'Your rating is...'
   return_to_top: 'Return to Top'
   tweet: 'Tweet'
-  tweet_content: 'I got a rating of [ {rating} ] on Absolute Tempo GAME A!'
+  tweet_content: 'I got a rating of [ {rating} ] on Absolute Tempo GAME {gameVariation}!'
 </i18n>
 
 <style scoped>

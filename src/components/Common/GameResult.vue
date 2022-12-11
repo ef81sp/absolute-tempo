@@ -27,7 +27,7 @@ const tweetUrl = computed(() => {
     'text',
     t('tweet_content', {
       rating: gameManager.rating,
-      gameVariation: props.gameVariation,
+      gameVariation: t(`game_title_${props.gameVariation}`),
     }),
   )
   url.searchParams.set('hashtags', encodeURI('absolute_tempo'))
@@ -66,11 +66,15 @@ ja:
   return_to_top: 'トップに戻る'
   tweet: 'ツイート'
   tweet_content: '絶対テンポ感 GAME {gameVariation} でレーティング【 {rating} 】を獲得！'
+  game_title_A: 'A (テンポ推測)'
+  game_title_B: 'B (叩き)'
 en:
   intro: 'Your rating is...'
   return_to_top: 'Return to Top'
   tweet: 'Tweet'
   tweet_content: 'I got a rating of [ {rating} ] on Absolute Tempo GAME {gameVariation}!'
+  game_title_A: 'A (Guess)'
+  game_title_B: 'B (Beat)'
 </i18n>
 
 <style scoped>

@@ -38,7 +38,7 @@ const { t } = useI18n()
       </div>
       <div class="controllers">
         <VBtn @click="goToGameB">PLAY</VBtn>
-        <VBtn  @click="goToPracticeB">PRACTICE</VBtn>
+        <VBtn @click="goToPracticeB">PRACTICE</VBtn>
       </div>
     </section>
   </div>

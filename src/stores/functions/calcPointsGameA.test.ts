@@ -3,7 +3,7 @@ import { calcPoints, rate } from './calcPoints'
 
 it('correct points', () => {
   expect(calcPoints(['PERFECT', 'PERFECT', 'PERFECT', 'PERFECT', 'PERFECT'])).toBe(25)
-  expect(calcPoints(['PERFECT', 'GREAT', 'GOOD', 'POOR', 'BAD'])).toBe(12)
+  expect(calcPoints(['PERFECT', 'GREAT', 'GOOD', 'POOR', 'BAD'])).toBe(13)
   expect(calcPoints(['BAD', 'BAD', 'BAD', 'BAD', 'BAD'])).toBe(0)
 })
 

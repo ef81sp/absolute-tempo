@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 
 import MetronomeBlink from '@/components/Metronome/MetronomeBlink.vue'
 import GameJudge from './Common/GameJudge.vue'
+import { generateRandomTempo } from '@/functions/generateRandomTempo'
 
 import { useMetronome } from '@/composables/metronome'
 import { useGameBManagerStore, numberOfQuestions, gameBJudge } from '@/stores/gameBManager'
@@ -20,10 +21,6 @@ const { t } = useI18n()
 
 const targetBpm = ref<number>(60)
 const isShowResult = ref(false)
-
-const generateRandomTempo = (): number => {
-  return (10 + Math.ceil(Math.random() * 50)) * 4
-}
 
 const start = () => {
   isShowResult.value = false

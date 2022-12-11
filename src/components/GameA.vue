@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 
 import MetronomeBlink from '@/components/Metronome/MetronomeBlink.vue'
 import GameJudge from './Common/GameJudge.vue'
+import { generateRandomTempo, minTempo, maxTempo, stepTempo } from '@/functions/generateRandomTempo'
 
 import { useMetronome } from '@/composables/metronome'
 import { useGameAManagerStore, numberOfQuestions, gameAJudge } from '@/stores/gameAManager'
@@ -21,9 +22,6 @@ const { t } = useI18n()
 const answerBpm = ref(60)
 const isShowResult = ref(false)
 
-const generateRandomTempo = (): number => {
-  return (10 + Math.ceil(Math.random() * 50)) * 4
-}
 const start = () => {
   stopMetronome()
   bpm.value = generateRandomTempo()
@@ -60,8 +58,8 @@ const handleGoToTop = () => {
     <p class="description">
       {{ t('description') }}<br />
       <small>
-        {{ t('description_bpm') }}<br />
-        ex) 40, 44, 48, ..., 236, 240
+        {{ t('description_bpm', { minTempo, maxTempo, stepTempo }) }}<br />
+        ex) {{ `${minTempo}, ${minTempo + 4}, ${minTempo + 8}, ..., ${maxTempo - 4}, ${maxTempo}` }}
       </small>
     </p>
     <MetronomeBlink
@@ -77,13 +75,13 @@ const handleGoToTop = () => {
           id="answer"
           v-model.number="answerBpm"
           type="number"
-          min="40"
-          max="240"
-          step="4"
+          :min="minTempo"
+          :max="maxTempo"
+          :step="stepTempo"
           :disabled="isShowResult"
           class="input"
           :rules="[(value: number) => {
-            return (40 <= value && value <= 240) && (value % 4 === 0) || 'NG'
+            return (minTempo <= value && value <= maxTempo) && (value % 4 === 0) || 'NG'
           }]"
         />
       </div>
@@ -152,7 +150,7 @@ const handleGoToTop = () => {
 <i18n lang="yaml">
 ja:
   description: 'BPMを推測しよう！'
-  description_bpm: 'BPMは40〜240の4刻み。'
+  description_bpm: 'BPMは{minTempo}〜{maxTempo}の{stepTempo}刻み。'
   your_answer: 'あなたの回答'
   correct_answer: '正解'
   judge: '判定！'
@@ -161,7 +159,7 @@ ja:
   practice_goto_top: 'トップに戻る'
 en:
   description: 'Guess what the BPM is!'
-  description_bpm: 'BPM increases by 4 from 40 to 240;'
+  description_bpm: 'BPM increases by {stepTempo} from {minTempo} to {maxTempo};'
   your_answer: 'Your Answer'
   correct_answer: 'Correct Answer'
   judge: 'Judge!'

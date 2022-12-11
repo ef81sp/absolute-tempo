@@ -42,6 +42,15 @@ const { t } = useI18n()
       </div>
     </section>
   </div>
+  <footer>
+    made by
+    <a
+      href="https://twitter.com/rik31415926"
+      target="_blank"
+      rel="noopener noreferer"
+      >@rik</a
+    >
+  </footer>
 </template>
 
 <i18n lang="yaml">
@@ -62,6 +71,10 @@ div > * {
 }
 section > * + * {
   margin-top: 1.3rem;
+}
+footer {
+  margin-top: 4rem;
+  text-align: center;
 }
 button {
   display: block;

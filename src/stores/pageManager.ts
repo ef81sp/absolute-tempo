@@ -1,4 +1,6 @@
-export type PageName = 'Top' | 'GameA' | 'PracticeA' | 'PracticeB' | 'GameB' | 'ResultA' | 'ResultB'
+type GameType = 'A' | 'B'
+type PageAboutGame = `Game${GameType}` | `Practice${GameType}` | `Result${GameType}`
+export type PageName = 'Top' | PageAboutGame
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 // Vue Routerでいい気もする

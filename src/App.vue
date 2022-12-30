@@ -2,12 +2,12 @@
 import TopPage from './components/TopPage.vue'
 import GameA from './components/GameA.vue'
 import Result from './components/Common/GameResult.vue'
-import { useGlobalManagerStore } from './stores/globalManager'
+import { usePageManagerStore } from './stores/pageManager'
 import { useI18n } from 'vue-i18n'
 import TranslateButton from './components/TranslateButton.vue'
 import GameB from './components/GameB.vue'
 
-const globalManager = useGlobalManagerStore()
+const pageManager = usePageManagerStore()
 const { t } = useI18n()
 </script>
 
@@ -20,30 +20,30 @@ const { t } = useI18n()
   </header>
 
   <main>
-    <TopPage v-if="globalManager.nowPage === 'Top'" />
+    <TopPage v-if="pageManager.nowPage === 'Top'" />
     <GameA
       mode="game"
-      v-if="globalManager.nowPage === 'GameA'"
+      v-if="pageManager.nowPage === 'GameA'"
     />
     <GameA
       mode="practice"
-      v-if="globalManager.nowPage === 'PracticeA'"
+      v-if="pageManager.nowPage === 'PracticeA'"
     />
     <Result
       game-variation="A"
-      v-if="globalManager.nowPage === 'ResultA'"
+      v-if="pageManager.nowPage === 'ResultA'"
     />
     <GameB
       mode="game"
-      v-if="globalManager.nowPage === 'GameB'"
+      v-if="pageManager.nowPage === 'GameB'"
     />
     <GameB
       mode="practice"
-      v-if="globalManager.nowPage === 'PracticeB'"
+      v-if="pageManager.nowPage === 'PracticeB'"
     />
     <Result
       game-variation="B"
-      v-if="globalManager.nowPage === 'ResultB'"
+      v-if="pageManager.nowPage === 'ResultB'"
     />
   </main>
 </template>

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import { useGlobalManagerStore } from '@/stores/globalManager'
+import { usePageManagerStore } from '@/stores/pageManager'
 import { useI18n } from 'vue-i18n'
 
-const globalManager = useGlobalManagerStore()
+const pageManager = usePageManagerStore()
 
 const goToGameA = () => {
-  globalManager.goToThePage('GameA')
+  pageManager.goToThePage('GameA')
 }
 const goToPracticeA = () => {
-  globalManager.goToThePage('PracticeA')
+  pageManager.goToThePage('PracticeA')
 }
 const goToGameB = () => {
-  globalManager.goToThePage('GameB')
+  pageManager.goToThePage('GameB')
 }
 const goToPracticeB = () => {
-  globalManager.goToThePage('PracticeB')
+  pageManager.goToThePage('PracticeB')
 }
 const { t } = useI18n()
 </script>

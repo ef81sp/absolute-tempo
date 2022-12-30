@@ -7,7 +7,7 @@ import { generateRandomTempo, minTempo, maxTempo, stepTempo } from '@/functions/
 
 import { useMetronome } from '@/composables/metronome'
 import { useGameAManagerStore, numberOfQuestions, gameAJudge } from '@/stores/gameAManager'
-import { useGlobalManagerStore } from '@/stores/globalManager'
+import { usePageManagerStore } from '@/stores/pageManager'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 const gameAManager = useGameAManagerStore()
-const globalManager = useGlobalManagerStore()
+const pageManager = usePageManagerStore()
 const { bpm, beat, start: startMetronome, stop: stopMetronome } = useMetronome()
 const { t } = useI18n()
 
@@ -40,7 +40,7 @@ const handleJudge = () => {
 const handleNext = () => {
   if (props.mode === 'game') {
     if (gameAManager.isFinishing) {
-      globalManager.goToThePage('ResultA')
+      pageManager.goToThePage('ResultA')
       return
     }
     gameAManager.addJudgeResults(judge.value)
@@ -48,7 +48,7 @@ const handleNext = () => {
   start()
 }
 const handleGoToTop = () => {
-  globalManager.goToThePage('Top')
+  pageManager.goToThePage('Top')
 }
 </script>
 
@@ -137,7 +137,7 @@ const handleGoToTop = () => {
         @click="
           () => {
             gameAManager.debugFinish()
-            globalManager.goToThePage('ResultA')
+            pageManager.goToThePage('ResultA')
           }
         "
       >

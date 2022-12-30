@@ -2,7 +2,7 @@ export type PageName = 'Top' | 'GameA' | 'PracticeA' | 'PracticeB' | 'GameB' | '
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 // Vue Routerでいい気もする
-export const useGlobalManagerStore = defineStore('globalManager', () => {
+export const usePageManagerStore = defineStore('pageManager', () => {
   const nowPage = ref<PageName>('Top')
   const goToThePage = (pageName: PageName) => {
     nowPage.value = pageName

@@ -7,7 +7,7 @@ import { generateRandomTempo } from '@/functions/generateRandomTempo'
 
 import { useMetronome } from '@/composables/metronome'
 import { useGameBManagerStore, numberOfQuestions, gameBJudge } from '@/stores/gameBManager'
-import { useGlobalManagerStore } from '@/stores/globalManager'
+import { usePageManagerStore } from '@/stores/pageManager'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
@@ -15,7 +15,7 @@ const props = defineProps<{
 }>()
 
 const gameBManager = useGameBManagerStore()
-const globalManager = useGlobalManagerStore()
+const pageManager = usePageManagerStore()
 const { bpm, beat, start: startMetronome, stop: stopMetronome, tap } = useMetronome()
 const { t } = useI18n()
 
@@ -43,7 +43,7 @@ const handleJudge = () => {
 const handleNext = () => {
   if (props.mode === 'game') {
     if (gameBManager.isFinishing) {
-      globalManager.goToThePage('ResultB')
+      pageManager.goToThePage('ResultB')
       return
     }
     gameBManager.addJudgeResults(judge.value)
@@ -51,7 +51,7 @@ const handleNext = () => {
   start()
 }
 const handleGoToTop = () => {
-  globalManager.goToThePage('Top')
+  pageManager.goToThePage('Top')
 }
 </script>
 
@@ -139,7 +139,7 @@ const handleGoToTop = () => {
         @click="
           () => {
             gameBManager.debugFinish()
-            globalManager.goToThePage('ResultB')
+            pageManager.goToThePage('ResultB')
           }
         "
       >

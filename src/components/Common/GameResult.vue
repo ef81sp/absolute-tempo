@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useGameAManagerStore } from '@/stores/gameAManager'
 import { useGameBManagerStore } from '@/stores/gameBManager'
-import { useGlobalManagerStore } from '@/stores/globalManager'
+import { usePageManagerStore } from '@/stores/pageManager'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameResultRating from './GameResultRating.vue'
@@ -18,7 +18,7 @@ const gameManager = (() => {
       return useGameBManagerStore()
   }
 })()
-const globalManager = useGlobalManagerStore()
+const pageManager = usePageManagerStore()
 const { t } = useI18n()
 
 const tweetUrl = computed(() => {
@@ -47,7 +47,7 @@ const tweetUrl = computed(() => {
     />
   </p>
   <div class="button-area">
-    <VBtn @click="globalManager.goToThePage('Top')">{{ t('return_to_top') }}</VBtn>
+    <VBtn @click="pageManager.goToThePage('Top')">{{ t('return_to_top') }}</VBtn>
     <VBtn
       prepend-icon="mdi-twitter"
       color="#1DA1F2"

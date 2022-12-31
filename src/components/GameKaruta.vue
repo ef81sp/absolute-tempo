@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { useKarutaManagerStore, type Difficulty } from '@/stores/karutaManager'
+import { useKarutaManagerStore, type Card, type Difficulty } from '@/stores/karutaManager'
 import { usePageManagerStore } from '@/stores/pageManager'
-import { useDateFormat, useTimestamp } from '@vueuse/core'
+import { useDateFormat, useMouse, useTimestamp } from '@vueuse/core'
 import { computed, onMounted, ref, toRef, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameKarutaCard from './Card/GameKarutaCard.vue'
+import GameKarutaTakeJudge, { type TimingJudge } from './Card/GameKarutaTakeJudge.vue'
 import TweetButton from './Common/TweetButton.vue'
 
 const { t } = useI18n()
@@ -33,6 +34,7 @@ onMounted(() => {
 })
 
 const { timestamp, pause: timestampPause } = useTimestamp({ controls: true })
+const { x, y } = useMouse()
 
 let _startedTime = timestamp.value
 const elapsedTimeStamp = computed(() => timestamp.value - _startedTime)
@@ -51,6 +53,29 @@ const checkWrong = (takeResult: boolean): void => {
   setTimeout(() => {
     wrong.value = false
   }, 3000)
+}
+
+const showJudge = ref(false)
+const timingJudge = ref<TimingJudge>('perfect')
+const handleClickCard = (card: Card) => {
+  if (wrong.value) return
+  if (card.cleared) return
+
+  timingJudge.value = (() => {
+    if (card.bpm > karutaManager.targetTempo) {
+      return 'fast'
+    } else if (card.bpm < karutaManager.targetTempo) {
+      return 'slow'
+    } else {
+      return 'perfect'
+    }
+  })()
+  showJudge.value = true
+  setTimeout(() => {
+    showJudge.value = false
+  }, 10)
+
+  checkWrong(karutaManager.take(card.id))
 }
 
 const gaveUp = ref(false)
@@ -89,9 +114,7 @@ const finished = computed(() => gaveUp.value || karutaManager.allCleared)
         :card="card"
         :handle-click="
           () => {
-            if (wrong) return
-            if (card.cleared) return
-            checkWrong(karutaManager.take(card.id))
+            handleClickCard(card)
           }
         "
         :disabled="wrong || gaveUp"
@@ -116,6 +139,12 @@ const finished = computed(() => gaveUp.value || karutaManager.allCleared)
       />
     </div>
   </article>
+  <GameKarutaTakeJudge
+    :isShow="showJudge"
+    :judge="timingJudge"
+    :left="x"
+    :top="y"
+  />
 </template>
 
 <i18n lang="yaml">

@@ -1,6 +1,8 @@
-type GameType = 'A' | 'B' | 'Karuta'
+import type { Difficulty as KarutaDifficulty } from './karutaManager'
+type GameType = 'A' | 'B'
+type Karuta = `Karuta${KarutaDifficulty}`
 type PageAboutGame = `Game${GameType}` | `Practice${GameType}` | `Result${GameType}`
-export type PageName = 'Top' | PageAboutGame
+export type PageName = 'Top' | PageAboutGame | Karuta
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 // Vue Routerでいい気もする

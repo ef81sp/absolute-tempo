@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useKarutaManagerStore } from '@/stores/karutaManager'
+import { useKarutaManagerStore, type Difficulty } from '@/stores/karutaManager'
 import { usePageManagerStore } from '@/stores/pageManager'
 import { useDateFormat, useTimestamp } from '@vueuse/core'
 import { computed, onMounted, ref, toRef, watch } from 'vue'
@@ -12,8 +12,24 @@ const { t } = useI18n()
 const karutaManager = useKarutaManagerStore()
 const pageManager = usePageManagerStore()
 
+const props = defineProps<{
+  difficulty?: Difficulty
+}>()
+const gridClass = computed<'card-field-glid-3' | 'card-field-glid-4' | 'card-field-glid-5'>(() => {
+  switch (props.difficulty) {
+    case 'Normal':
+      return 'card-field-glid-3'
+    case 'Hard':
+      return 'card-field-glid-4'
+    case 'Extreme':
+      return 'card-field-glid-5'
+    default:
+      return 'card-field-glid-3'
+  }
+})
+
 onMounted(() => {
-  karutaManager.init()
+  karutaManager.init(props.difficulty)
 })
 
 const { timestamp, pause: timestampPause } = useTimestamp({ controls: true })
@@ -47,6 +63,8 @@ const tweetText = computed(() =>
   t(gaveUp.value ? 'tweetGaveUp' : 'tweetCleared', {
     time: elapsedTime.value,
     takenNumber: karutaManager.takenNumber,
+    max: karutaManager.cards.length,
+    difficulty: props.difficulty,
   }),
 )
 
@@ -64,7 +82,7 @@ const finished = computed(() => gaveUp.value || karutaManager.allCleared)
       <p class="time">{{ elapsedTime }}</p>
       <p class="question">{{ karutaManager.allCleared ? 'Cleared!' : karutaManager.targetTempo }}</p>
     </div>
-    <div class="card-field">
+    <div :class="['card-field', gridClass]">
       <GameKarutaCard
         v-for="card in karutaManager.cards"
         :key="card.id"
@@ -107,16 +125,16 @@ ja:
   description2: 'お手つきは3秒のタイムロス。'
   giveUp: 'ギブアップ'
   backToTop: 'トップに戻る'
-  tweetGaveUp: "絶対テンポ感 Extra: かるた をギブアップ…… {'|'} タイム: {time}, とった枚数: {takenNumber} / 9"
-  tweetCleared: "絶対テンポ感 Extra: かるた をクリア！ {'|'} タイム: {time}, とった枚数: {takenNumber} / 9"
+  tweetGaveUp: "絶対テンポ感 Extra: かるた (難易度: {difficulty}) をギブアップ…… {'|'} タイム: {time}, とった枚数: {takenNumber} / {max}"
+  tweetCleared: "絶対テンポ感 Extra: かるた (難易度: {difficulty})  をクリア！ {'|'} タイム: {time}, とった枚数: {takenNumber} / {max}"
 en:
   title: Karuta
   description: 'Take a card of the same tempo as the given tempo!'
   description2: 'If you take a wrong card, you lose 3 seconds of time.'
   giveUp: 'Give Up'
   backToTop: 'Back to Top'
-  tweetGaveUp: "I gave up the Karuta game of Absolute Tempo... {'|'} Time: {time}, Taken Cards: {takenNumber} / 9"
-  tweetCleared: "I cleared the Karuta game of Absolute Tempo! {'|'} Time: {time}, Taken Cards: {takenNumber} / 9"
+  tweetGaveUp: "I gave up the Karuta game (difficulty: {difficulty}) of Absolute Tempo... {'|'} Time: {time}, Taken Cards: {takenNumber} / {max}"
+  tweetCleared: "I cleared the Karuta game (difficulty: {difficulty}) of Absolute Tempo! {'|'} Time: {time}, Taken Cards: {takenNumber} / {max}"
 </i18n>
 
 <style scoped lang="scss">
@@ -142,9 +160,17 @@ article {
 }
 .card-field {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
   gap: 2%;
   margin-bottom: 2rem;
+}
+.card-field-glid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+.card-field-glid-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+.card-field-glid-5 {
+  grid-template-columns: repeat(5, 1fr);
 }
 .button-area {
   margin-top: 1.3rem;

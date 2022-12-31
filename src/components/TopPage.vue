@@ -16,8 +16,14 @@ const goToGameB = () => {
 const goToPracticeB = () => {
   pageManager.goToThePage('PracticeB')
 }
-const goToKaruta = () => {
-  pageManager.goToThePage('GameKaruta')
+const goToKarutaNormal = () => {
+  pageManager.goToThePage('KarutaNormal')
+}
+const goToKarutaHard = () => {
+  pageManager.goToThePage('KarutaHard')
+}
+const goToKarutaExtreme = () => {
+  pageManager.goToThePage('KarutaExtreme')
 }
 const { t } = useI18n()
 </script>
@@ -49,7 +55,9 @@ const { t } = useI18n()
     <section>
       <h2>Extra: {{ t('karuta') }}</h2>
       <div class="controllers">
-        <VBtn @click="goToKaruta">PLAY</VBtn>
+        <VBtn @click="goToKarutaNormal">Normal</VBtn>
+        <VBtn @click="goToKarutaHard">Hard</VBtn>
+        <VBtn @click="goToKarutaExtreme">Extreme</VBtn>
       </div>
     </section>
     <section>
@@ -99,6 +107,7 @@ footer {
 }
 button {
   display: block;
+  width: 6rem;
 }
 .sectioin-container {
   display: flex;

@@ -46,7 +46,18 @@ const { t } = useI18n()
       game-variation="B"
       v-if="pageManager.nowPage === 'ResultB'"
     />
-    <GameKaruta v-if="pageManager.nowPage === 'GameKaruta'" />
+    <GameKaruta
+      v-if="pageManager.nowPage === 'KarutaNormal'"
+      difficulty="Normal"
+    />
+    <GameKaruta
+      v-if="pageManager.nowPage === 'KarutaHard'"
+      difficulty="Hard"
+    />
+    <GameKaruta
+      v-if="pageManager.nowPage === 'KarutaExtreme'"
+      difficulty="Extreme"
+    />
   </main>
 </template>
 

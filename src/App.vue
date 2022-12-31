@@ -6,6 +6,7 @@ import { usePageManagerStore } from './stores/pageManager'
 import { useI18n } from 'vue-i18n'
 import TranslateButton from './components/TranslateButton.vue'
 import GameB from './components/GameB.vue'
+import GameKaruta from './components/GameKaruta.vue'
 
 const pageManager = usePageManagerStore()
 const { t } = useI18n()
@@ -45,6 +46,7 @@ const { t } = useI18n()
       game-variation="B"
       v-if="pageManager.nowPage === 'ResultB'"
     />
+    <GameKaruta v-if="pageManager.nowPage === 'GameKaruta'" />
   </main>
 </template>
 

@@ -1,4 +1,4 @@
-type GameType = 'A' | 'B'
+type GameType = 'A' | 'B' | 'Karuta'
 type PageAboutGame = `Game${GameType}` | `Practice${GameType}` | `Result${GameType}`
 export type PageName = 'Top' | PageAboutGame
 import { ref } from 'vue'
@@ -9,6 +9,9 @@ export const usePageManagerStore = defineStore('pageManager', () => {
   const goToThePage = (pageName: PageName) => {
     nowPage.value = pageName
   }
+  const goToTop = () => {
+    nowPage.value = 'Top'
+  }
 
-  return { nowPage, goToThePage }
+  return { nowPage, goToThePage, goToTop }
 })

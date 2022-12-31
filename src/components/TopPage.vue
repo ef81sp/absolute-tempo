@@ -16,11 +16,14 @@ const goToGameB = () => {
 const goToPracticeB = () => {
   pageManager.goToThePage('PracticeB')
 }
+const goToKaruta = () => {
+  pageManager.goToThePage('GameKaruta')
+}
 const { t } = useI18n()
 </script>
 
 <template>
-  <div class="d-flex justify-space-around">
+  <div class="sectioin-container">
     <section>
       <div>
         <h2>GAME A</h2>
@@ -42,6 +45,20 @@ const { t } = useI18n()
       </div>
     </section>
   </div>
+  <div class="sectioin-container">
+    <section>
+      <h2>Extra: {{ t('karuta') }}</h2>
+      <div class="controllers">
+        <VBtn @click="goToKaruta">PLAY</VBtn>
+      </div>
+    </section>
+    <section>
+      <h2>Extra: {{ t('memory') }}</h2>
+      <div class="controllers">
+        <VBtn disabled>PLAY</VBtn>
+      </div>
+    </section>
+  </div>
   <footer>
     made by
     <a
@@ -57,9 +74,13 @@ const { t } = useI18n()
 ja:
   guess: '推測'
   beat: '叩き'
+  karuta: 'かるた'
+  memory: '神経衰弱'
 en:
   guess: 'Guess'
   beat: 'Beat'
+  karuta: Karuta
+  memory: Memory
 </i18n>
 
 <style scoped>
@@ -78,6 +99,13 @@ footer {
 }
 button {
   display: block;
+}
+.sectioin-container {
+  display: flex;
+  justify-content: space-around;
+}
+.sectioin-container + .sectioin-container {
+  margin-top: 2rem;
 }
 .controllers > * + * {
   margin-top: 0.5rem;

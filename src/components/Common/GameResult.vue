@@ -5,6 +5,7 @@ import { usePageManagerStore } from '@/stores/pageManager'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import GameResultRating from './GameResultRating.vue'
+import TweetButton from './TweetButton.vue'
 
 const props = defineProps<{
   gameVariation: 'A' | 'B'
@@ -21,20 +22,12 @@ const gameManager = (() => {
 const pageManager = usePageManagerStore()
 const { t } = useI18n()
 
-const tweetUrl = computed(() => {
-  const url = new URL('https://twitter.com/intent/tweet')
-  url.searchParams.set(
-    'text',
-    t('tweet_content', {
-      rating: gameManager.rating,
-      gameVariation: t(`game_title_${props.gameVariation}`),
-    }),
-  )
-  url.searchParams.set('hashtags', encodeURI('absolute_tempo'))
-  url.searchParams.set('url', encodeURI(window.location.href))
-
-  return url.toString()
-})
+const tweetText = computed(() =>
+  t('tweet_content', {
+    rating: gameManager.rating,
+    gameVariation: t(`game_title_${props.gameVariation}`),
+  }),
+)
 </script>
 
 <template>
@@ -48,15 +41,7 @@ const tweetUrl = computed(() => {
   </p>
   <div class="button-area">
     <VBtn @click="pageManager.goToThePage('Top')">{{ t('return_to_top') }}</VBtn>
-    <VBtn
-      prepend-icon="mdi-twitter"
-      color="#1DA1F2"
-      class="tweet-button"
-      :href="tweetUrl"
-      target="_blank"
-      rel="noopener norefferer"
-      >{{ t('tweet') }}</VBtn
-    >
+    <TweetButton :text="tweetText" />
   </div>
 </template>
 

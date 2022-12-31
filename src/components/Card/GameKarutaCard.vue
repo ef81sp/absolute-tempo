@@ -94,6 +94,6 @@ watchOnce(
   width: 95%;
 }
 .done {
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 </style>

@@ -70,10 +70,10 @@ const { t } = useI18n()
   <footer>
     made by
     <a
-      href="https://twitter.com/rik31415926"
+      href="https://twitter.com/p_craft"
       target="_blank"
       rel="noopener noreferer"
-      >@rik</a
+      >@p_craft</a
     >
   </footer>
 </template>
